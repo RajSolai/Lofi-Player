@@ -10,60 +10,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  var songs = [
+    {"title": "Song 1", "uri": "assets/vid1.mp4"},
+    {"title": "Song 2", "uri": "assets/vid2.mp4"}
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
           backgroundColor: Colors.black,
-          body: Stack(
-            children: [
-              PageView(
+          body: Stack(children: [
+            PageView(
                 scrollDirection: Axis.vertical,
-                children: [
-                  VideoView(videourl: "assets/vid1.mp4"),
-                  VideoView(videourl: "assets/vid2.mp4")
-                ],
-              ),
-              SongDetailsView(),
-            ],
-          )),
-    );
-  }
-}
-
-class SongDetailsView extends StatefulWidget {
-  @override
-  _SongDetailsView createState() => _SongDetailsView();
-}
-
-class _SongDetailsView extends State<SongDetailsView> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(child: Container()),
-          Padding(
-            padding: EdgeInsets.all(15.0),
-            child: Text(
-              "Song Name",
-              textAlign: TextAlign.right,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40.0,
-                  color: Colors.white),
-            ),
-          )
-        ],
-      ),
+                children: songs
+                    .map((song) => VideoView(
+                          videourl: song['uri'],
+                          songname: song['title'],
+                        ))
+                    .toList())
+          ])),
     );
   }
 }
 
 class VideoView extends StatefulWidget {
-  VideoView({this.videourl});
+  VideoView({this.videourl, this.songname});
   final String videourl;
+  final String songname;
   @override
   _VideoView createState() => _VideoView();
 }
@@ -105,16 +79,35 @@ class _VideoView extends State<VideoView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: InkWell(
-            onTap: () => _toggleVideo(),
-            child: Center(
-              child: _controller.value.initialized
-                  ? AspectRatio(
-                      aspectRatio: 0.45,
-                      child: VideoPlayer(_controller),
-                    )
-                  : Container(),
-            )));
+        child: Stack(children: [
+      InkWell(
+          onTap: () => _toggleVideo(),
+          child: Center(
+            child: _controller.value.initialized
+                ? AspectRatio(
+                    aspectRatio: 0.45,
+                    child: VideoPlayer(_controller),
+                  )
+                : Container(),
+          )),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Container()),
+          Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Text(
+              widget.songname,
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40.0,
+                  color: Colors.white),
+            ),
+          )
+        ],
+      ),
+    ]));
   }
 
   @override
