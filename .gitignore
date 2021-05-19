@@ -39,3 +39,6 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+
+assets/vid1.mp4
+assets/vid2.mp4

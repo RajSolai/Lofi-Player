@@ -1,5 +1,6 @@
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 void main() => runApp(HomePage());
 
@@ -13,20 +14,56 @@ class _HomePage extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.black,
-        body: PageView(
-          scrollDirection: Axis.vertical,
-          children: [
-            VideoView(),
-            VideoView()
-          ],
-        ),
+          backgroundColor: Colors.black,
+          body: Stack(
+            children: [
+              PageView(
+                scrollDirection: Axis.vertical,
+                children: [
+                  VideoView(videourl: "assets/vid1.mp4"),
+                  VideoView(videourl: "assets/vid2.mp4")
+                ],
+              ),
+              SongDetailsView(),
+            ],
+          )),
+    );
+  }
+}
+
+class SongDetailsView extends StatefulWidget {
+  @override
+  _SongDetailsView createState() => _SongDetailsView();
+}
+
+class _SongDetailsView extends State<SongDetailsView> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Container()),
+          Padding(
+            padding: EdgeInsets.all(15.0),
+            child: Text(
+              "Song Name",
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40.0,
+                  color: Colors.white),
+            ),
+          )
+        ],
       ),
     );
   }
 }
 
 class VideoView extends StatefulWidget {
+  VideoView({this.videourl});
+  final String videourl;
   @override
   _VideoView createState() => _VideoView();
 }
@@ -34,44 +71,50 @@ class VideoView extends StatefulWidget {
 class _VideoView extends State<VideoView> {
   VideoPlayerController _controller;
   bool _isplaying = false;
-  String _videoPath = "assets/sample.mp4";
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(_videoPath)
+    _controller = VideoPlayerController.asset(widget.videourl)
       ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {_isplaying = true;});
+        setState(() {
+          _isplaying = true;
+        });
         _controller.play();
       });
   }
+
   void _toggleVideo() {
-    if(_isplaying){
+    if (_isplaying) {
       _controller.pause();
-      setState((){_isplaying=false;});
-    }else{
+      Toast.show("⏸️", context,
+          gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+      setState(() {
+        _isplaying = false;
+      });
+    } else {
       _controller.play();
-      setState((){_isplaying=true;});
+      Toast.show("▶️", context,
+          gravity: Toast.CENTER, duration: Toast.LENGTH_LONG);
+      setState(() {
+        _isplaying = true;
+      });
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: InkWell(
-        onTap: ()=>_toggleVideo(),
-      child:Center(
-          child: _controller.value.initialized
-              ? AspectRatio(
-                  aspectRatio: 0.45,
-                  child: VideoPlayer(_controller),
-                )
-              : Container(),
-        )
-      )
-    );
+        child: InkWell(
+            onTap: () => _toggleVideo(),
+            child: Center(
+              child: _controller.value.initialized
+                  ? AspectRatio(
+                      aspectRatio: 0.45,
+                      child: VideoPlayer(_controller),
+                    )
+                  : Container(),
+            )));
   }
 
   @override
