@@ -11,8 +11,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   var songs = [
-    {"title": "Song 1", "uri": "assets/vid1.mp4"},
-    {"title": "Song 2", "uri": "assets/vid2.mp4"}
+    {"title": "Jinsang- Affection", "uri": "assets/vid1.mp4"},
+    {"title": "Saib- In your arms", "uri": "assets/vid2.mp4"}
   ];
 
   @override
@@ -85,7 +85,7 @@ class _VideoView extends State<VideoView> {
           child: Center(
             child: _controller.value.initialized
                 ? AspectRatio(
-                    aspectRatio: 0.45,
+                    aspectRatio: 0.48,
                     child: VideoPlayer(_controller),
                   )
                 : Container(),
@@ -95,7 +95,7 @@ class _VideoView extends State<VideoView> {
         children: [
           Expanded(child: Container()),
           Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
             child: Text(
               widget.songname,
               textAlign: TextAlign.right,
@@ -104,7 +104,13 @@ class _VideoView extends State<VideoView> {
                   fontSize: 40.0,
                   color: Colors.white),
             ),
-          )
+          ),
+          Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 10.0),
+              child: Text(
+                "Song taken from youtube not my animation or song",
+                style: TextStyle(color: Colors.white),
+              ))
         ],
       ),
     ]));
