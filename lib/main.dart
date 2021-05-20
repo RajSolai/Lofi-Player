@@ -19,7 +19,7 @@ class _HomePage extends State<HomePage> {
     {
       "title": "Saib- In your arms",
       "uri":
-          "https://firebasestorage.googleapis.com/v0/b/pushy-9740f.appspot.com/o/vid1.mp4?alt=media&token=76c433ed-b909-44c9-ba42-31dc4b95f825"
+          "https://firebasestorage.googleapis.com/v0/b/pushy-9740f.appspot.com/o/vid2.mp4?alt=media&token=162b6b2e-4abf-4f83-88a1-e48bae40d966"
     }
   ];
 
