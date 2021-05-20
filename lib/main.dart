@@ -11,8 +11,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   var songs = [
-    {"title": "Jinsang- Affection", "uri": "assets/vid1.mp4"},
-    {"title": "Saib- In your arms", "uri": "assets/vid2.mp4"}
+    {
+      "title": "Jinsang- Affection",
+      "uri":
+          "https://firebasestorage.googleapis.com/v0/b/pushy-9740f.appspot.com/o/vid1.mp4?alt=media&token=76c433ed-b909-44c9-ba42-31dc4b95f825"
+    },
+    {
+      "title": "Saib- In your arms",
+      "uri":
+          "https://firebasestorage.googleapis.com/v0/b/pushy-9740f.appspot.com/o/vid1.mp4?alt=media&token=76c433ed-b909-44c9-ba42-31dc4b95f825"
+    }
   ];
 
   @override
@@ -49,7 +57,7 @@ class _VideoView extends State<VideoView> {
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.asset(widget.videourl)
+    _controller = VideoPlayerController.network(widget.videourl)
       ..initialize().then((_) {
         setState(() {
           _isplaying = true;
