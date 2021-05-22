@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
@@ -92,11 +94,22 @@ class _VideoView extends State<VideoView> {
           onTap: () => _toggleVideo(),
           child: Center(
             child: _controller.value.initialized
-                ? AspectRatio(
-                    aspectRatio: 0.48,
-                    child: VideoPlayer(_controller),
-                  )
-                : Container(),
+                ? DecoratedBox(
+                    position: DecorationPosition.foreground,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter,
+                            colors: [Colors.black87, Colors.transparent])),
+                    child: AspectRatio(
+                      aspectRatio: 0.48,
+                      child: VideoPlayer(_controller),
+                    ))
+                : Container(
+                    child: Center(
+                        child: CircularProgressIndicator(
+                    color: Colors.white,
+                  ))),
           )),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
