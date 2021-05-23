@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/services.dart';
+import 'package:LofiPlayer/services/videos.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
@@ -21,7 +21,7 @@ class _App extends State<App> {
 
 class HomeView extends StatefulWidget {
   HomeView({this.songs});
-  final List<Map> songs;
+  final List songs;
   @override
   _HomeView createState() => _HomeView();
 }
@@ -34,7 +34,7 @@ class _HomeView extends State<HomeView> {
           scrollDirection: Axis.vertical,
           children: widget.songs
               .map((song) => VideoView(
-                    videourl: song['uri'],
+                    videourl: song['url'],
                     songname: song['title'],
                   ))
               .toList())
@@ -49,18 +49,19 @@ class SplashView extends StatefulWidget {
 
 class _SplashView extends State<SplashView> {
   bool _isLoading = true;
-  var songs = [
-    {
-      "title": "Jinsang- Affection",
-      "uri":
-          "https://firebasestorage.googleapis.com/v0/b/pushy-9740f.appspot.com/o/vid1.mp4?alt=media&token=76c433ed-b909-44c9-ba42-31dc4b95f825"
-    },
-    {
-      "title": "Saib- In your arms",
-      "uri":
-          "https://firebasestorage.googleapis.com/v0/b/pushy-9740f.appspot.com/o/vid2.mp4?alt=media&token=162b6b2e-4abf-4f83-88a1-e48bae40d966"
-    }
-  ];
+  List vids;
+
+  @override
+  void initState() {
+    super.initState();
+    new Videos().getVideos().then((value) => {
+      setState((){
+        vids = value;
+        _isLoading = false;
+      })
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +93,7 @@ class _SplashView extends State<SplashView> {
                 ),
               )
             : HomeView(
-                songs: songs,
+                songs: vids,
               ));
   }
 }
