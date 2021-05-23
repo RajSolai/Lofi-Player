@@ -13,8 +13,10 @@ class _App extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        title: "LofiPlayer",
         home: SplashView(),
         theme: ThemeData(
+          splashColor: Colors.black,
           backgroundColor: Colors.black,
           accentColorBrightness: Brightness.dark,
           primaryColorBrightness: Brightness.dark
