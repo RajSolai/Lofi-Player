@@ -49,11 +49,11 @@ class _VideoView extends State<VideoView> {
   Widget build(BuildContext context) {
     return Container(
         child: Stack(children: [
-          InkWell(
-              onTap: () => _toggleVideo(),
-              child: Center(
-                child: _controller.value.initialized
-                    ? DecoratedBox(
+      InkWell(
+          onTap: () => _toggleVideo(),
+          child: Center(
+            child: _controller.value.initialized
+                ? DecoratedBox(
                     position: DecorationPosition.foreground,
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
@@ -61,39 +61,39 @@ class _VideoView extends State<VideoView> {
                             end: Alignment.topCenter,
                             colors: [Colors.black87, Colors.transparent])),
                     child: AspectRatio(
-                      aspectRatio: 0.48,
+                      aspectRatio: MediaQuery.of(context).size.aspectRatio,
                       child: VideoPlayer(_controller),
                     ))
-                    : Container(
+                : Container(
                     child: Center(
                         child: CircularProgressIndicator(
-                          color: Colors.white,
-                        ))),
-              )),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(child: Container()),
-              Padding(
-                padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
-                child: Text(
-                  widget.songname,
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40.0,
-                      color: Colors.white),
-                ),
-              ),
-              Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 10.0),
-                  child: Text(
-                    "Song taken from youtube not my animation or song",
-                    style: TextStyle(color: Colors.white),
-                  ))
-            ],
+                    color: Colors.white,
+                  ))),
+          )),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Container()),
+          Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 0.0),
+            child: Text(
+              widget.songname,
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40.0,
+                  color: Colors.white),
+            ),
           ),
-        ]));
+          Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 10.0),
+              child: Text(
+                "Song taken from youtube not my animation or song",
+                style: TextStyle(color: Colors.white),
+              ))
+        ],
+      ),
+    ]));
   }
 
   @override
