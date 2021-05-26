@@ -15,11 +15,11 @@ class _SplashView extends State<SplashView> {
   void initState() {
     super.initState();
     new Videos().getVideos().then((value) => {
-      setState((){
-        vids = value;
-        _isLoading = false;
-      })
-    });
+          setState(() {
+            vids = value;
+            _isLoading = false;
+          })
+        });
   }
 
   @override
@@ -28,26 +28,32 @@ class _SplashView extends State<SplashView> {
         backgroundColor: Colors.black,
         body: _isLoading
             ? Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                "LofiPlayer",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 32.0),
-              ),
-              Padding(
-                padding: EdgeInsets.all(40.0),
-                child: CircularProgressIndicator(color: Colors.white),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Image.asset(
+                          "assets/splash_icon.png",
+                          height: MediaQuery.of(context).size.height / 3,
+                        )),
+                    Text(
+                      "LofiPlayer",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 32.0),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(40.0),
+                      child: CircularProgressIndicator(color: Colors.white),
+                    )
+                  ],
+                ),
               )
-            ],
-          ),
-        )
             : HomeView(
-          songs: vids,
-        ));
+                songs: vids,
+              ));
   }
 }
