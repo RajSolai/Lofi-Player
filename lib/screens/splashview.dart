@@ -14,7 +14,7 @@ class _SplashView extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    new Videos().getVideos().then((value) => {
+    Videos().getVideos().then((value) => {
           setState(() {
             vids = value;
             _isLoading = false;
