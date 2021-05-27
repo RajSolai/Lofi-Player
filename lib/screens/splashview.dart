@@ -56,4 +56,10 @@ class _SplashView extends State<SplashView> {
                 songs: vids,
               ));
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    this.dispose();
+  }
 }
